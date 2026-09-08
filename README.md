@@ -40,17 +40,13 @@ El workflow implementado en n8n consta de las siguientes fases secuenciales:
 1. Petición estándar (Entrada válida)
 Request:
 POST /webhook/snackcheck
-
-JSON
-{
-  "barcode": "8480000142878"
-}
-
-2. Respuesta estándar (Salida válida)
+JSON: {  "barcode": "8480000142878" }
+2. Procesamiento del flujo.
+3. Respuesta estándar (Salida válida)
 📑 Informe del producto Nutella, Ferrero, Yum yum\n\n➡️ El veredicto sobre el producto escaneado es: unhealthy : 🔴\n\n🍎🍔🍩Recomendación: Este producto aporta 56.3 g de carbohidratos, 0.107 g de grasa y 30.9 g de proteína por 100 g. Con un bajo contenido graso y una buena cantidad de proteína, su alto nivel de carbohidratos y la clasificación NutriScore “unhealthy” sugieren un perfil calórico y azucarado elevado. Es adecuado para quienes buscan energía rápida, pero no es recomendable para dietas bajas en carbohidratos o con control de azúcar. 🍎🍔🍩  \n\n📆 Generado el 8 de septiembre de 2026
 
 
-## 4. Motor de Snackccccheck
+## 4. Motor de SnackCheck
 El nodo LOGICA - Code in JavaScript es el motor de cálculo del flujo: procesa los datos de Open Food Facts y define el veredicto objetivo antes de redactar con IA mediante 4 pasos clave:
 
 - Semáforo por nutriente: Clasifica azúcar, grasas saturadas y sal, y umbrales de salud pública.
@@ -70,9 +66,12 @@ Deja como salida el veredicto final, los colores de los nutrientes y la directiv
 | HTTP 400:Nutrientes vacíos o nulos | El producto existe pero la ficha de nutrientes está sin rellenar. | El nodo IF - Validar presencia Nutrientes corta la evaluación. Nunca califica como saludable un producto sin datos. Informa que faltan datos para emitir un veredicto honesto. |
 
 
-## 5. Dependencias
+## 6. Dependencias
 - n8n Cloud: https://irenemoor.app.n8n.cloud/
 - Open Food Facts API v2
 - Disparador: https://hoppscotch.io/
 - Groq Chat Model con el modelo openai/gpt-oss-20b
 - Open Food Facts no requiere credencial en este workflow. La única credencial que necesita este proyecto es tu clave de Groq para el paso de IA.
+
+## 7. Diagrama resultante n8n:
+<img width="620" height="211" alt="image" src="https://github.com/user-attachments/assets/579e43c2-65f7-4ac0-916f-3274e5e76f6b" />
